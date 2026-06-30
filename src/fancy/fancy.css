@@ -74,3 +74,29 @@
   .fancy-hero { min-height: auto; padding: 72px 0 56px; }
   .fh-title { font-size: clamp(38px, 11vw, 56px); }
 }
+
+/* ============================================================================
+   LIGHT THEME — 3D mode readability.
+   The fixed robot scene + its scrim/dim are authored dark (#06070a). In light
+   theme that dark layer bled through the transparent sections, so light-mode
+   dark text sat on a near-black backdrop = barely visible. Re-tint the scene's
+   scrim + scroll-dim to the light bg (so the page reads light and the robot
+   becomes a soft ghost), and flip the hero's dark-tuned text to light values.
+   Dark theme is untouched.
+   ========================================================================== */
+:root[data-theme='light'] .fancy-bg-grad {
+  background: linear-gradient(90deg,
+    var(--bg) 0%,
+    color-mix(in srgb, var(--bg) 60%, transparent) 42%,
+    color-mix(in srgb, var(--bg) 5%, transparent) 72%);
+}
+:root[data-theme='light'] .fancy-bg-dim { background: var(--bg); }
+
+:root[data-theme='light'] .fh-content .eyebrow { color: var(--accent); }
+:root[data-theme='light'] .fh-title {
+  background: linear-gradient(180deg, var(--text) 12%, var(--muted) 98%);
+  -webkit-background-clip: text; background-clip: text;
+}
+:root[data-theme='light'] .fh-title .it { -webkit-text-fill-color: var(--accent); }
+:root[data-theme='light'] .fh-lead { color: var(--muted); }
+:root[data-theme='light'] .loader { border-color: rgba(0, 0, 0, 0.12); border-top-color: var(--accent); }
