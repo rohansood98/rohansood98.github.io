@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# build
+dist/
+dist-ssr/
+
+# local env / logs
+*.local
+*.log
+.DS_Store
+
+# editor
+.vscode/
+.idea/
+
+# NOTE: public/resume.pdf SHOULD be committed (it's your public résumé, served at /resume.pdf)
