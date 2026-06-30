@@ -18,7 +18,7 @@ function useDesktop() {
 // 3D scene behind the page. Swap by changing which line is active — alternatives are
 // kept (commented) so we can revert without re-hunting the URLs.
 const SCENE = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode' // original floating robot
-// const SCENE = 'https://prod.spline.design/JmdRMcVJIgZyjSTv/scene.splinecode' // CRT desk robot (abandoned: neck breaks on look-at + legs clip into page)
+// const SCENE = 'https://prod.spline.design/JmdRMcVJIgZyjSTv/scene.splinecode' // CRT desk robot (dead end: baked-in scroll animation deforms the desk; unfixable our side)
 // const SCENE = 'https://prod.spline.design/0sjYln8btNIBVo5P/scene.splinecode' // boxes hover (abstract grid)
 
 /** Fixed 3D scene behind the whole page; dims (a dark overlay fades in) as you scroll
@@ -36,6 +36,26 @@ export function FancyBackground() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Spline's look-at maps pageX/pageY against the canvas's cached rect (runtime.js
+  // updateRaycaster). Our canvas is position:fixed, so page coords — which include
+  // scrollY — must be collapsed to viewport coords, or the gaze drifts and deforms the
+  // scene as you scroll. Mirror pageX/pageY onto clientX/clientY for pointer/mouse events
+  // while the 3D bg is mounted. This corrects BOTH our forwarded events and the runtime's
+  // own scroll-driven pointer re-dispatch, so the scene tracks on cursor move yet doesn't
+  // change on scroll. (Nothing in this app reads pageX/pageY, and it's restored on unmount.)
+  useEffect(() => {
+    if (!desktop) return
+    const proto = MouseEvent.prototype
+    const px = Object.getOwnPropertyDescriptor(proto, 'pageX')
+    const py = Object.getOwnPropertyDescriptor(proto, 'pageY')
+    Object.defineProperty(proto, 'pageX', { configurable: true, get() { return this.clientX } })
+    Object.defineProperty(proto, 'pageY', { configurable: true, get() { return this.clientY } })
+    return () => {
+      if (px) Object.defineProperty(proto, 'pageX', px)
+      if (py) Object.defineProperty(proto, 'pageY', py)
+    }
+  }, [desktop])
 
   // The canvas is pointer-transparent (so it never blocks scroll/clicks), so it can't
   // receive mouse events itself. Forward the real cursor position to it as a synthetic
@@ -56,10 +76,10 @@ export function FancyBackground() {
     }
     const onMove = (e: MouseEvent) => {
       if (!e.isTrusted) return
-      // Only drive the robot while the hero is on screen. Forwarding the cursor while
-      // scrolled feeds the scene's viewport-relative look-at a position that no longer
-      // matches what's visible, which cranes the head up and won't self-correct (only
-      // scrolling back up does). Below the hero the scene is dimmed away anyway.
+      // Only drive the gaze while the hero is on screen. The pageY override keeps the
+      // scene stable through scroll, but moving the mouse while scrolled still maps the
+      // look-at wrong for this scene, so we simply don't feed it the cursor down there
+      // (where it's dimmed away anyway) — it holds its last hero pose.
       const vh = window.innerHeight || 800
       if (window.scrollY > vh * 0.85) return
       cx = e.clientX
