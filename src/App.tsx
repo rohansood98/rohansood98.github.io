@@ -2,6 +2,7 @@ import './fancy/fancy.css'
 import { useTheme } from './hooks/useTheme'
 import { useMode } from './hooks/useMode'
 import { Nav } from './sections/Nav'
+import { FancyBackground } from './fancy/FancyBackground'
 import { FancyHero } from './fancy/FancyHero'
 import { Marquee } from './fancy/Marquee'
 import { Work } from './sections/Work'
@@ -13,19 +14,23 @@ import { Contact } from './sections/Contact'
 export function App() {
   const { theme, toggle } = useTheme()
   const { mode, set } = useMode()
+  const fancy = mode === 'fancy'
   return (
     <>
-      <Nav theme={theme} onToggle={toggle} mode={mode} onSetMode={set} />
-      <main>
-        {/* same hero in both modes — Lite just drops the 3D robot */}
-        <FancyHero enable3D={mode === 'fancy'} />
-        <Marquee />
-        <Work />
-        <Experience />
-        <About />
-        <Hobby />
-        <Contact />
-      </main>
+      {/* 3D robot fixed behind everything (desktop, 3D mode); dims on scroll */}
+      {fancy && <FancyBackground />}
+      <div className={fancy ? 'shell is-3d' : 'shell'}>
+        <Nav theme={theme} onToggle={toggle} mode={mode} onSetMode={set} />
+        <main>
+          <FancyHero />
+          <Marquee />
+          <Work />
+          <Experience />
+          <About />
+          <Hobby />
+          <Contact />
+        </main>
+      </div>
     </>
   )
 }

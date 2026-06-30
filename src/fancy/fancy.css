@@ -44,6 +44,15 @@
 .fh-lead { color: #9aa2b4; margin-top: 22px; max-width: 42ch; font-size: 17px; line-height: 1.62; }
 .fh-actions { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; pointer-events: auto; }
 
+/* persistent 3D background — fixed behind the page, dims on scroll (3D mode, desktop) */
+.shell { position: relative; z-index: 1; }
+.fancy-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.fancy-bg-spline { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fancy-bg-grad { position: absolute; inset: 0; background: linear-gradient(90deg, #06070a 0%, rgba(6,7,10,0.6) 42%, rgba(6,7,10,0.05) 72%); }
+.fancy-bg-dim { position: absolute; inset: 0; background: #06070a; } /* opacity set by scroll */
+/* in 3D mode the hero + sections are transparent so the fixed robot shows through */
+.is-3d .fancy-hero { background: transparent; }
+
 /* marquee */
 .marquee {
   overflow: hidden; margin-top: clamp(22px, 4vw, 44px);
