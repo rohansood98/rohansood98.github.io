@@ -27,7 +27,7 @@ export function Contact() {
       <footer className="foot">
         <div className="wrap">
           <span>© 2026 {profile.name}</span>
-          <span>Built by hand · React + Motion</span>
+          <span><a href="#top">Back to top ↑</a></span>
         </div>
       </footer>
     </>

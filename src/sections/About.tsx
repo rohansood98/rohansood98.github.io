@@ -10,7 +10,6 @@ export function About() {
       <div className="wrap">
         <motion.div className="sec-head" variants={fadeUp} {...inView}>
           <h2>About</h2>
-          <span className="idx">since 2020</span>
         </motion.div>
 
         <motion.div className="about-grid" variants={stagger} {...inView}>

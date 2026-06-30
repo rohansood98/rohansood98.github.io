@@ -2,6 +2,7 @@ import { useTheme } from './hooks/useTheme'
 import { Nav } from './sections/Nav'
 import { Hero } from './sections/Hero'
 import { Work } from './sections/Work'
+import { Experience } from './sections/Experience'
 import { About } from './sections/About'
 import { Hobby } from './sections/Hobby'
 import { Contact } from './sections/Contact'
@@ -14,6 +15,7 @@ export function App() {
       <main>
         <Hero />
         <Work />
+        <Experience />
         <About />
         <Hobby />
         <Contact />
