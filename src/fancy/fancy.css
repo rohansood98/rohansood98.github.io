@@ -46,6 +46,9 @@
 
 /* persistent 3D background — fixed behind the page, dims on scroll (3D mode, desktop) */
 .shell { position: relative; z-index: 1; }
+/* the whole background layer is pointer-transparent so it never blocks page scroll or
+   clicks; the scene still tracks the cursor — FancyBackground forwards mouse position to
+   the canvas manually (see FancyBackground.tsx), which avoids the canvas swallowing wheel. */
 .fancy-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 .fancy-bg-spline { position: absolute; inset: 0; width: 100%; height: 100%; }
 .fancy-bg-grad { position: absolute; inset: 0; background: linear-gradient(90deg, #06070a 0%, rgba(6,7,10,0.6) 42%, rgba(6,7,10,0.05) 72%); }
