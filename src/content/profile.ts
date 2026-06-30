@@ -74,32 +74,37 @@ export const profile = {
   ],
   experience: [
     {
-      role: 'AI/ML Engineer',
-      org: 'Digit88',
-      when: 'Aug 2025 — Present',
-      where: 'Remote · India',
-      note: 'Production LLM apps & multi-agent systems — interview platforms, agentic newsletters, codebase intelligence; provider-abstraction for portable, cheap inference.',
+      role: 'AI/ML Engineer', org: 'Digit88', short: 'D', when: 'Aug 2025 — Present', where: 'Remote · India',
+      bullets: [
+        'Built Recruit Assist — an AI interview platform (résumé scoring, voice interviews) behind a provider-agnostic LLM/STT/TTS layer; ~$0.003/résumé, ~$0.12/interview.',
+        'Shipped NewsAI — a LangGraph agentic newsletter; a multi-agent ranking pass lifted classification 13% → 52% and turned ~6h of analyst work into 10-min runs.',
+        'Built AutoDoc AI — multi-agent codebase intelligence using MCP-integrated tools; cut repo-analysis effort by ~70%.',
+        'Deployed a hybrid RAG (BM25 + vector + rerank) with sub-1s p95 over thousands of articles.',
+      ],
     },
     {
-      role: 'ML Engineering Consultant',
-      org: 'Vosyn',
-      when: 'Apr — Jul 2025',
-      where: 'Toronto · Canada',
-      note: 'AWS Lambda + LangGraph pipelines for PDF→HTML review; PSOLA silence-aware auto-dubbing realignment; FastAPI services on Cloud Run.',
+      role: 'ML Engineering Consultant', org: 'Vosyn', short: 'V', when: 'Apr — Jul 2025', where: 'Toronto · Canada',
+      bullets: [
+        'Built SmartHTML — an AWS Lambda + SQS + LangGraph pipeline automating PDF→HTML review (1–2h → ~25 min per asset).',
+        'Implemented a PSOLA, silence-aware realignment module for auto-dubbing (+200 bps fluency/prosody).',
+        'Containerized the FastAPI realignment service on Cloud Run; wrapped the backend with FastMCP for a chatbot.',
+      ],
     },
     {
-      role: 'SRE & Automation Intern',
-      org: 'GridX',
-      when: 'May — Aug 2024',
-      where: 'Toronto · Canada',
-      note: 'Slack bot on EKS (Lex + Lambda) automating Jira & access (−80% DevOps tickets); CI/CD with Docker + Jenkins.',
+      role: 'SRE & Automation Intern', org: 'GridX', short: 'G', when: 'May — Aug 2024', where: 'Toronto · Canada',
+      bullets: [
+        'Built a Python Slack bot on EKS (Lex + Lambda) automating Jira tickets & access — cut DevOps ticket load ~80%.',
+        'Engineered CI/CD with Docker + Jenkins, pushing images to ECR.',
+        'Tag-driven RDS scheduling via Jenkins — ~10% idle-hour savings.',
+      ],
     },
     {
-      role: 'Product Analyst',
-      org: 'PlaySimple Games',
-      when: 'Sep 2020 — Dec 2022',
-      where: 'Bengaluru · India',
-      note: 'Anomaly-detection product alerts; A/B experiments lifting retention 15% / IAP 40%; PowerBI root-cause dashboards over billions of rows.',
+      role: 'Product Analyst', org: 'PlaySimple Games', short: 'P', when: 'Sep 2020 — Dec 2022', where: 'Bengaluru · India',
+      bullets: [
+        'Shipped real-time product-health alerts via an Isolation-Forest detector wired into on-call.',
+        'Ran A/B experiments that lifted retention 15% and IAP 40%.',
+        'Built PowerBI root-cause dashboards over billions of rows — ~25% faster RCA.',
+      ],
     },
   ],
   education: [
