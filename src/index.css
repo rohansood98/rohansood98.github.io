@@ -233,9 +233,15 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
 .contact h2 a { border-bottom: 3px solid var(--accent); transition: color 0.2s; }
 .contact h2 a:hover { color: var(--accent); }
 .contact .sub { color: var(--muted); margin: 22px auto 0; max-width: 46ch; font-size: 17px; }
-.socials { display: flex; justify-content: center; gap: 22px; margin-top: 34px; }
-.socials a { font-family: var(--mono); font-size: 14px; color: var(--muted); transition: color 0.2s; }
-.socials a:hover { color: var(--accent); }
+.socials { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+.socials a {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--sans); font-weight: 500; font-size: 15px; color: var(--text);
+  border: 1px solid var(--line); border-radius: 999px; padding: 11px 20px;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.socials a svg { width: 18px; height: 18px; }
+.socials a:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 .foot { border-top: 1px solid var(--line); padding: 28px 0; }
 .foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 .foot span { font-family: var(--mono); font-size: 12.5px; color: var(--faint); }
