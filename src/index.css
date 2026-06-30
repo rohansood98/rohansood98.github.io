@@ -98,6 +98,14 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
   transition: border-color 0.2s, color 0.2s;
 }
 .theme-btn:hover { border-color: var(--line-strong); color: var(--text); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.seg-btn {
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+  background: transparent; border: none; padding: 7px 12px; cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.seg-btn:hover { color: var(--text); }
+.seg-btn.on { background: var(--accent); color: var(--accent-ink); }
 
 /* ---------- hero ---------- */
 .hero { position: relative; padding: clamp(70px, 13vw, 150px) 0 clamp(56px, 9vw, 110px); }
@@ -241,6 +249,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
   .xp-tabs { flex-direction: row; flex-wrap: wrap; }
   .edu-row { grid-template-columns: 1fr; gap: 4px; }
   .nav-links a:not(.theme-btn) { display: none; }
+  .seg { display: none; } /* mobile auto-uses Lite; no 3D toggle needed */
 }
 
 @media (prefers-reduced-motion: reduce) {
