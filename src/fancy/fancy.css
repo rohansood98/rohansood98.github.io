@@ -17,30 +17,32 @@
 .loader { width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.12); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.9s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* hero */
-.fancy-hero { padding: clamp(20px, 4vw, 44px) 0 0; }
-.fh-card {
-  position: relative; overflow: hidden; border-radius: 24px;
-  background: radial-gradient(120% 120% at 80% 0%, #0e1118 0%, #06070a 60%);
-  border: 1px solid #1b1d26;
+/* hero — full-bleed, the 3D robot is a mouse-tracked background (no box), text overlaid */
+.fancy-hero {
+  position: relative; overflow: hidden; display: flex; align-items: center;
+  min-height: clamp(580px, 86vh, 820px); background: #06070a;
 }
-.fh-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; min-height: 540px; }
-.fh-left {
-  position: relative; z-index: 3; padding: clamp(28px, 4vw, 58px);
-  display: flex; flex-direction: column; justify-content: center;
+/* canvas spans the whole hero so the robot tracks the cursor everywhere, incl. over text */
+.fh-spline-wrap { position: absolute; inset: 0; z-index: 0; }
+.fh-spline { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* left→right scrim keeps the text readable while the robot stays visible on the right */
+.fh-scrim {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, #06070a 0%, rgba(6,7,10,0.92) 28%, rgba(6,7,10,0.45) 55%, rgba(6,7,10,0) 76%);
 }
-.fh-left .eyebrow { color: #5b8cff; }
+/* content passes pointer events THROUGH to the canvas (so the robot tracks over text);
+   only the buttons re-capture events */
+.fh-content { position: relative; z-index: 2; width: 100%; pointer-events: none; }
+.fh-content .eyebrow { color: #6ea0ff; }
 .fh-title {
   font-family: var(--sans); font-weight: 800; letter-spacing: -0.035em; line-height: 0.98;
-  font-size: clamp(40px, 5.2vw, 70px); margin-top: 18px; max-width: 14ch;
-  background: linear-gradient(180deg, #f6f8fc 8%, #7c8498 96%);
+  font-size: clamp(44px, 6vw, 82px); margin-top: 18px; max-width: 15ch;
+  background: linear-gradient(180deg, #f6f8fc 8%, #8a93a6 98%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 .fh-title .it { font-family: var(--serif); font-style: italic; font-weight: 400; -webkit-text-fill-color: #6ea0ff; }
-.fh-lead { color: #98a0b2; margin-top: 22px; max-width: 44ch; font-size: 17px; line-height: 1.62; }
-.fh-left .actions { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; }
-.fh-right { position: relative; }
-.fh-spline { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fh-lead { color: #9aa2b4; margin-top: 22px; max-width: 42ch; font-size: 17px; line-height: 1.62; }
+.fh-actions { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; pointer-events: auto; }
 
 /* marquee */
 .marquee {
@@ -56,6 +58,7 @@
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 @media (max-width: 820px) {
-  .fh-grid { grid-template-columns: 1fr; }
-  .fh-right { height: 320px; }
+  /* mobile: drop the heavy 3D for a fast, readable text hero */
+  .fancy-hero { min-height: auto; padding: 64px 0 52px; }
+  .fh-spline-wrap, .fh-scrim { display: none; }
 }
