@@ -1,0 +1,61 @@
+/* Fancy variant — Spline 3D + spotlight hero + marquee. Loaded only on /fancy. */
+
+/* spotlight (aceternity) */
+.spotlight {
+  position: absolute; pointer-events: none; z-index: 1;
+  height: 169%; width: 138%; opacity: 0;
+  animation: spotlight 2.2s ease 0.6s forwards;
+}
+.fh-spot { top: -42%; left: -12%; }
+@keyframes spotlight {
+  0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+  100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
+}
+
+/* spline loader */
+.spline-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.loader { width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.12); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* hero */
+.fancy-hero { padding: clamp(20px, 4vw, 44px) 0 0; }
+.fh-card {
+  position: relative; overflow: hidden; border-radius: 24px;
+  background: radial-gradient(120% 120% at 80% 0%, #0e1118 0%, #06070a 60%);
+  border: 1px solid #1b1d26;
+}
+.fh-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; min-height: 540px; }
+.fh-left {
+  position: relative; z-index: 3; padding: clamp(28px, 4vw, 58px);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.fh-left .eyebrow { color: #5b8cff; }
+.fh-title {
+  font-family: var(--sans); font-weight: 800; letter-spacing: -0.035em; line-height: 0.98;
+  font-size: clamp(40px, 5.2vw, 70px); margin-top: 18px; max-width: 14ch;
+  background: linear-gradient(180deg, #f6f8fc 8%, #7c8498 96%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.fh-title .it { font-family: var(--serif); font-style: italic; font-weight: 400; -webkit-text-fill-color: #6ea0ff; }
+.fh-lead { color: #98a0b2; margin-top: 22px; max-width: 44ch; font-size: 17px; line-height: 1.62; }
+.fh-left .actions { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; }
+.fh-right { position: relative; }
+.fh-spline { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* marquee */
+.marquee {
+  overflow: hidden; margin-top: clamp(22px, 4vw, 44px);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.marquee-track { display: flex; gap: 44px; width: max-content; animation: marquee 30s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-item { font-family: var(--mono); font-size: 14px; color: var(--muted); white-space: nowrap; }
+.marquee-item span { color: var(--accent); margin-right: 44px; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+@media (max-width: 820px) {
+  .fh-grid { grid-template-columns: 1fr; }
+  .fh-right { height: 320px; }
+}
