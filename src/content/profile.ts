@@ -15,7 +15,7 @@ export const profile = {
     line1: 'Building ',
     ghost: 'agentic',
     line2: 'AI systems that ship.',
-    lead: 'I design and deploy production LLM applications, multi-agent workflows, and RAG systems — from interview platforms to codebase intelligence. Currently at Digit88; previously Vosyn, GridX, PlaySimple.',
+    lead: 'I design and deploy production LLM applications, multi-agent workflows, and RAG systems — from interview platforms to codebase intelligence.',
   },
   about: {
     lead: 'I build AI that earns its place — measured by what it ships and what it saves, not by the demo.',
