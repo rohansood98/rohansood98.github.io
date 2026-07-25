@@ -14,7 +14,10 @@ Personal portfolio for **Rohan Sood — AI/ML Engineer**. Single-page React site
 
 ## How it's structured
 - **All copy/content lives in `src/content/profile.ts`** — edit there, never hard-code copy in components.
-- Sections: `src/sections/{Nav,Work,Experience,About,Hobby,Contact}.tsx`.
+- Sections: `src/sections/{Nav,Experience,Education,Work,About,Hobby,Contact}.tsx` — that's also the
+  page order (experience-first: it's a résumé-forward site, evidence before narrative).
+- Company logos live in `public/logos/` and are referenced by `logo:` on each `experience` entry.
+  `LogoTile` in `Experience.tsx` falls back to the monogram (`short:`) if a file is missing.
 - Fancy bits: `src/fancy/{FancyBackground,FancyHero,Spotlight,SplineScene,Marquee}.tsx` + `fancy.css`.
 - Hooks: `useTheme` (light/dark) and `useMode` ('fancy' = 3D / 'clean' = Lite), both persisted in localStorage.
 - `src/App.tsx` composes everything based on `theme` + `mode`.
@@ -24,7 +27,14 @@ Personal portfolio for **Rohan Sood — AI/ML Engineer**. Single-page React site
   - **3D mode** (desktop default): a Spline robot is a **fixed full-page background** (`FancyBackground`) that **dims on scroll** (a dark overlay fades in) so it never fights the text.
   - **Lite mode**: identical hero, **robot removed** (no Spline loaded). Same text/layout.
 - **Mobile auto-uses Lite** and never loads the heavy 3D; the 3D toggle is hidden on mobile (`useMode` defaults by viewport; `.seg` hidden < 821px).
-- **Light/dark theme** toggle, persisted.
+- **Light/dark theme** toggle, persisted. The hero's backdrop follows the **theme**, never the mode —
+  it was once hard-coded dark with only `.is-3d` clearing it, which made the Lite+light hero a black
+  slab with dark text. If you touch `.fancy-hero`, keep the dark-theme and `.is-3d` selectors in sync
+  (the dark selector is more specific, so the 3D-transparent rule spells out its dark variant).
+- **Experience + Education are scroll-revealed timelines**, every entry rendered. Don't reintroduce a
+  tabbed/click-to-expand experience — it hid 3 of 4 roles from readers and from search engines.
+- **Resume is the one primary CTA in the nav** (filled accent pill) and survives the mobile nav
+  collapse. Write it as "Resume" — no `résumé.pdf`, no filename-as-label, no `↓` (reads as scroll).
 - One accent (electric blue `#5b8cff` dark / `#3257d6` light) — deliberately cool, distinct from the
   owner's other brands (Keepsy orange, Lisnara gold). Don't reintroduce warm beige.
 - Fonts: **Sora** (structure), **Instrument Serif** (italic accent words), **JetBrains Mono** (labels).

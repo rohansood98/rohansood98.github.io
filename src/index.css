@@ -15,6 +15,9 @@
   --accent: #5b8cff;
   --accent-soft: rgba(91, 140, 255, 0.16);
   --accent-ink: #060912;
+  /* Cards are translucent so the fixed 3D scene stays faintly visible behind them. */
+  --card: rgba(19, 20, 26, 0.72);
+  --shadow: none;
 
   --sans: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
   --serif: 'Instrument Serif', Georgia, serif;
@@ -23,18 +26,24 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Light theme. Previously a flat grey field (#eceef3) with hairlines at ~2% contrast,
+   which read as washed out — nothing sat on a surface, so there was no figure/ground and
+   the rules/tag borders were effectively invisible. Now: a near-white page, meaningfully
+   darker lines, a darker --faint (it carries real content), and real card surfaces. */
 :root[data-theme='light'] {
-  --bg: #eceef3;
+  --bg: #f7f8fb;
   --surface: #ffffff;
-  --surface-2: #e4e7ef;
-  --line: #dde0e9;
-  --line-strong: #ccd1dd;
-  --text: #10131c;
-  --muted: #586072;
-  --faint: #99a0b0;
-  --accent: #3257d6;
-  --accent-soft: rgba(50, 87, 214, 0.12);
+  --surface-2: #eef0f6;
+  --line: #d5dae6;
+  --line-strong: #a7b0c2;
+  --text: #0b0e16;
+  --muted: #454d5f;
+  --faint: #6f7889;
+  --accent: #2f52cf;
+  --accent-soft: rgba(47, 82, 207, 0.10);
   --accent-ink: #ffffff;
+  --card: rgba(255, 255, 255, 0.86);
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 10px 28px -14px rgba(16, 24, 40, 0.16);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -98,6 +107,16 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
   transition: border-color 0.2s, color 0.2s;
 }
 .theme-btn:hover { border-color: var(--line-strong); color: var(--text); }
+/* the one primary CTA in the chrome — a recruiter should never hunt for the resume */
+/* `.nav-links a` sets colour at (0,1,1), so this must match it or the pill renders
+   muted-on-accent and becomes unreadable. */
+.nav-links a.btn-nav {
+  font-family: var(--mono); font-size: 12.5px; font-weight: 500;
+  background: var(--accent); color: var(--accent-ink);
+  border-radius: 999px; padding: 9px 18px;
+  transition: transform 0.18s var(--ease), filter 0.2s;
+}
+.nav-links a.btn-nav:hover { color: var(--accent-ink); transform: translateY(-1px); filter: brightness(1.08); }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
 .seg-btn {
   font-family: var(--mono); font-size: 12px; color: var(--muted);
@@ -145,6 +164,11 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
 .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 52px; flex-wrap: wrap; }
 .sec-head h2 { font-size: clamp(30px, 4.5vw, 48px); font-weight: 700; letter-spacing: -0.03em; }
 .sec-head .idx { font-family: var(--mono); font-size: 13px; color: var(--faint); }
+.sec-link {
+  font-family: var(--mono); font-size: 13px; color: var(--accent);
+  border-bottom: 1px solid transparent; transition: border-color 0.2s;
+}
+.sec-link:hover { border-bottom-color: var(--accent); }
 
 /* ---------- work list ---------- */
 .work-list { border-top: 1px solid var(--line); }
@@ -170,41 +194,66 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
 .w-access { font-family: var(--mono); font-size: 11px; color: var(--faint); }
 .w-go { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
 
-/* ---------- experience (tabbed) ---------- */
-.xp { display: grid; grid-template-columns: 250px 1fr; gap: 48px; align-items: start; }
-.xp-tabs { display: flex; flex-direction: column; gap: 4px; }
-.xp-tab {
-  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
-  padding: 12px 14px; border-radius: 11px; border: none; cursor: pointer;
-  background: transparent; color: var(--muted); font-family: var(--sans);
-  font-size: 15.5px; font-weight: 500; transition: background 0.2s, color 0.2s;
+/* ---------- timeline (experience + education) ----------
+   Replaces the old tabbed experience, which showed 1 of 4 roles — three quarters of the
+   career was a click away and invisible to search engines. Every entry is now rendered,
+   revealing itself as it scrolls into view. */
+.tl { position: relative; display: flex; flex-direction: column; gap: 22px; }
+/* the rail — runs behind the nodes, stopping at the last one */
+.tl::before {
+  content: ''; position: absolute; left: 5px; top: 12px; bottom: 12px; width: 1px;
+  background: var(--line); z-index: 0;
 }
-.xp-tab:hover { color: var(--text); }
-.xp-tab.active { background: var(--surface-2); color: var(--text); }
-.xp-ava {
-  width: 30px; height: 30px; border-radius: 50%; flex: 0 0 auto;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--surface-2); color: var(--accent);
-  font-family: var(--mono); font-size: 13px; font-weight: 600;
+.tl-item { position: relative; display: grid; grid-template-columns: 11px 1fr; gap: 26px; align-items: start; }
+.tl-node {
+  width: 11px; height: 11px; border-radius: 50%; margin-top: 26px; z-index: 1;
+  background: var(--bg); border: 2px solid var(--accent);
+  box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent-soft);
 }
-.xp-tab.active .xp-ava { background: var(--accent); color: var(--accent-ink); }
-.xp-panel { min-height: 220px; }
-.xp-panel h3 { font-size: clamp(22px, 3vw, 31px); font-weight: 700; letter-spacing: -0.02em; }
-.xp-panel h3 .org { color: var(--accent); }
-.xp-when { font-family: var(--mono); font-size: 13px; color: var(--muted); margin-top: 10px; }
-.xp-where { font-size: 14px; color: var(--faint); margin-top: 4px; }
-.xp-bullets { margin-top: 20px; display: flex; flex-direction: column; gap: 13px; }
-.xp-bullet { display: flex; gap: 12px; align-items: flex-start; color: var(--muted); font-size: 15.5px; line-height: 1.55; max-width: 64ch; }
-.xp-bullet svg { color: var(--accent); flex: 0 0 auto; margin-top: 4px; }
+.tl-card {
+  border: 1px solid var(--line); border-radius: 16px; background: var(--card);
+  box-shadow: var(--shadow); backdrop-filter: blur(10px);
+  padding: clamp(20px, 2.6vw, 28px);
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.tl-card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
 
-.sub-h { font-family: var(--mono); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin: 60px 0 10px; }
-.edu { border-top: 1px solid var(--line); }
-.edu-row {
-  display: grid; grid-template-columns: 1fr 1.6fr; gap: 20px; align-items: baseline;
-  padding: 16px 0; border-bottom: 1px solid var(--line);
+.tl-head { display: flex; align-items: center; gap: 15px; }
+.tl-logo {
+  width: 44px; height: 44px; flex: 0 0 auto; border-radius: 11px;
+  object-fit: cover; border: 1px solid var(--line); background: var(--surface-2);
 }
-.edu-role { font-weight: 600; }
-.edu-org { color: var(--muted); font-size: 15px; }
+.tl-logo-mono {
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 17px; font-weight: 600; color: var(--accent);
+}
+.tl-org, .tl-degree { font-size: clamp(19px, 2.3vw, 23px); font-weight: 700; letter-spacing: -0.02em; }
+.tl-org a { transition: color 0.2s; }
+.tl-org a:hover { color: var(--accent); }
+/* the ↗ stays out of the way until you're on the card */
+.tl-ext {
+  font-size: 0.62em; margin-left: 7px; color: var(--faint);
+  opacity: 0; transition: opacity 0.25s var(--ease);
+}
+.tl-card:hover .tl-ext { opacity: 1; }
+.tl-role { color: var(--accent); font-size: 15px; font-weight: 500; margin-top: 3px; }
+.tl-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 14px; }
+.tl-head + .tl-meta { margin-top: 16px; }
+
+.tl-bullets { margin-top: 18px; display: flex; flex-direction: column; gap: 11px; list-style: none; }
+.tl-bullets li {
+  position: relative; padding-left: 20px; color: var(--muted);
+  font-size: 15.5px; line-height: 1.58; max-width: 68ch;
+}
+.tl-bullets li::before {
+  content: ''; position: absolute; left: 2px; top: 0.65em;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+}
+.tl-chip {
+  display: inline-block; margin-top: 16px; padding: 5px 12px; border-radius: 7px;
+  background: var(--accent-soft); color: var(--accent);
+  font-family: var(--mono); font-size: 12.5px; font-weight: 500;
+}
 
 /* ---------- about ---------- */
 .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start; }
@@ -251,10 +300,11 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
   .hobby { grid-template-columns: 1fr; }
   .work-row { grid-template-columns: 40px 1fr; }
   .w-meta { grid-column: 2; align-items: flex-start; text-align: left; }
-  .xp { grid-template-columns: 1fr; gap: 24px; }
-  .xp-tabs { flex-direction: row; flex-wrap: wrap; }
-  .edu-row { grid-template-columns: 1fr; gap: 4px; }
-  .nav-links a:not(.theme-btn) { display: none; }
+  .tl-item { grid-template-columns: 11px 1fr; gap: 16px; }
+  .tl-card { padding: 20px; }
+  /* section links collapse, but the Resume CTA must survive on mobile */
+  .nav-links { gap: 12px; }
+  .nav-links a:not(.theme-btn):not(.btn-nav) { display: none; }
   .seg { display: none; } /* mobile auto-uses Lite; no 3D toggle needed */
 }
 
