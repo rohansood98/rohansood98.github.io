@@ -15,8 +15,8 @@ export function FancyHero() {
         <p className="fh-lead">{profile.hero.lead}</p>
         <div className="fh-actions">
           <a className="btn btn-accent" href="#work">View my work →</a>
+          {/* Resume lives in the nav pill — repeating it here diluted the hero. */}
           <a className="btn btn-ghost" href="#contact">Get in touch</a>
-          <a className="btn btn-ghost" href={profile.resumeUrl} target="_blank" rel="noopener">Resume</a>
         </div>
       </div>
     </section>

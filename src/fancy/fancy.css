@@ -100,9 +100,11 @@
 :root[data-theme='light'] .fancy-bg-dim { background: var(--bg); }
 
 :root[data-theme='light'] .fh-content .eyebrow { color: var(--accent); }
+/* Solid, not a gradient. The dark-mode title fades white→grey for depth; mirroring that
+   in light theme fades the second line toward --muted, which just reads as washed out. */
 :root[data-theme='light'] .fh-title {
-  background: linear-gradient(180deg, var(--text) 12%, var(--muted) 98%);
-  -webkit-background-clip: text; background-clip: text;
+  background: none; -webkit-background-clip: initial; background-clip: initial;
+  color: var(--text); -webkit-text-fill-color: var(--text);
 }
 :root[data-theme='light'] .fh-title .it { -webkit-text-fill-color: var(--accent); }
 :root[data-theme='light'] .fh-lead { color: var(--muted); }

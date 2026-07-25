@@ -75,6 +75,7 @@ export const profile = {
   experience: [
     {
       role: 'AI/ML Engineer', org: 'Digit88', short: 'D', logo: '/logos/digit88.png',
+      href: 'https://digit88.com',
       when: 'Aug 2025 — Present', where: 'Remote · India',
       bullets: [
         'Built Recruit Assist — an AI interview platform (résumé scoring, voice interviews) behind a provider-agnostic LLM/STT/TTS layer; ~$0.003/résumé, ~$0.12/interview.',
@@ -85,6 +86,7 @@ export const profile = {
     },
     {
       role: 'ML Engineering Consultant', org: 'Vosyn', short: 'V', logo: '/logos/vosyn.png',
+      href: 'https://vosyn.ai',
       when: 'Apr — Jul 2025', where: 'Toronto · Canada',
       bullets: [
         'Built SmartHTML — an AWS Lambda + SQS + LangGraph pipeline automating PDF→HTML review (1–2h → ~25 min per asset).',
@@ -94,6 +96,7 @@ export const profile = {
     },
     {
       role: 'SRE & Automation Intern', org: 'GridX', short: 'G', logo: '/logos/gridx.png',
+      href: 'https://gridx.com',
       when: 'May — Aug 2024', where: 'Toronto · Canada',
       bullets: [
         'Built a Python Slack bot on EKS (Lex + Lambda) automating Jira tickets & access — cut DevOps ticket load ~80%.',
@@ -103,6 +106,7 @@ export const profile = {
     },
     {
       role: 'Product Analyst', org: 'PlaySimple Games', short: 'P', logo: '/logos/playsimple.png',
+      href: 'https://playsimple.in',
       when: 'Sep 2020 — Dec 2022', where: 'Bengaluru · India',
       bullets: [
         'Shipped real-time product-health alerts via an Isolation-Forest detector wired into on-call.',

@@ -35,10 +35,10 @@
   --surface: #ffffff;
   --surface-2: #eef0f6;
   --line: #d5dae6;
-  --line-strong: #b4bbcb;
-  --text: #0d101a;
-  --muted: #4d5566;
-  --faint: #767e91;
+  --line-strong: #a7b0c2;
+  --text: #0b0e16;
+  --muted: #454d5f;
+  --faint: #6f7889;
   --accent: #2f52cf;
   --accent-soft: rgba(47, 82, 207, 0.10);
   --accent-ink: #ffffff;
@@ -228,6 +228,14 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
   font-family: var(--mono); font-size: 17px; font-weight: 600; color: var(--accent);
 }
 .tl-org, .tl-degree { font-size: clamp(19px, 2.3vw, 23px); font-weight: 700; letter-spacing: -0.02em; }
+.tl-org a { transition: color 0.2s; }
+.tl-org a:hover { color: var(--accent); }
+/* the ↗ stays out of the way until you're on the card */
+.tl-ext {
+  font-size: 0.62em; margin-left: 7px; color: var(--faint);
+  opacity: 0; transition: opacity 0.25s var(--ease);
+}
+.tl-card:hover .tl-ext { opacity: 1; }
 .tl-role { color: var(--accent); font-size: 15px; font-weight: 500; margin-top: 3px; }
 .tl-meta { font-family: var(--mono); font-size: 12.5px; color: var(--faint); margin-top: 14px; }
 .tl-head + .tl-meta { margin-top: 16px; }

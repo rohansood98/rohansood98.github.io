@@ -40,7 +40,11 @@ export function Experience() {
                 <div className="tl-head">
                   <LogoTile src={c.logo} short={c.short} org={c.org} />
                   <div>
-                    <h3 className="tl-org">{c.org}</h3>
+                    <h3 className="tl-org">
+                      <a href={c.href} target="_blank" rel="noopener">
+                        {c.org}<span className="tl-ext" aria-hidden>↗</span>
+                      </a>
+                    </h3>
                     <div className="tl-role">{c.role}</div>
                   </div>
                 </div>
