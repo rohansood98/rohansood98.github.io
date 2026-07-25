@@ -6,10 +6,10 @@ const ROMAN = ['i', 'ii', 'iii', 'iv', 'v', 'vi']
 
 export function Work() {
   return (
-    <section className="section" id="work">
+    <section className="section" id="projects">
       <div className="wrap">
         <motion.div className="sec-head" variants={fadeUp} {...inView}>
-          <h2>Selected work</h2>
+          <h2>Projects</h2>
           <span className="idx">{String(profile.projects.length).padStart(2, '0')} projects</span>
         </motion.div>
 
