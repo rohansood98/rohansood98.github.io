@@ -7,6 +7,7 @@ import { FancyHero } from './fancy/FancyHero'
 import { Marquee } from './fancy/Marquee'
 import { Work } from './sections/Work'
 import { Experience } from './sections/Experience'
+import { Education } from './sections/Education'
 import { About } from './sections/About'
 import { Hobby } from './sections/Hobby'
 import { Contact } from './sections/Contact'
@@ -24,8 +25,9 @@ export function App() {
         <main>
           <FancyHero />
           <Marquee />
-          <Work />
           <Experience />
+          <Education />
+          <Work />
           <About />
           <Hobby />
           <Contact />

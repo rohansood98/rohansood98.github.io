@@ -74,7 +74,8 @@ export const profile = {
   ],
   experience: [
     {
-      role: 'AI/ML Engineer', org: 'Digit88', short: 'D', when: 'Aug 2025 — Present', where: 'Remote · India',
+      role: 'AI/ML Engineer', org: 'Digit88', short: 'D', logo: '/logos/digit88.png',
+      when: 'Aug 2025 — Present', where: 'Remote · India',
       bullets: [
         'Built Recruit Assist — an AI interview platform (résumé scoring, voice interviews) behind a provider-agnostic LLM/STT/TTS layer; ~$0.003/résumé, ~$0.12/interview.',
         'Shipped NewsAI — a LangGraph agentic newsletter; a multi-agent ranking pass lifted classification 13% → 52% and turned ~6h of analyst work into 10-min runs.',
@@ -83,7 +84,8 @@ export const profile = {
       ],
     },
     {
-      role: 'ML Engineering Consultant', org: 'Vosyn', short: 'V', when: 'Apr — Jul 2025', where: 'Toronto · Canada',
+      role: 'ML Engineering Consultant', org: 'Vosyn', short: 'V', logo: '/logos/vosyn.png',
+      when: 'Apr — Jul 2025', where: 'Toronto · Canada',
       bullets: [
         'Built SmartHTML — an AWS Lambda + SQS + LangGraph pipeline automating PDF→HTML review (1–2h → ~25 min per asset).',
         'Implemented a PSOLA, silence-aware realignment module for auto-dubbing (+200 bps fluency/prosody).',
@@ -91,7 +93,8 @@ export const profile = {
       ],
     },
     {
-      role: 'SRE & Automation Intern', org: 'GridX', short: 'G', when: 'May — Aug 2024', where: 'Toronto · Canada',
+      role: 'SRE & Automation Intern', org: 'GridX', short: 'G', logo: '/logos/gridx.png',
+      when: 'May — Aug 2024', where: 'Toronto · Canada',
       bullets: [
         'Built a Python Slack bot on EKS (Lex + Lambda) automating Jira tickets & access — cut DevOps ticket load ~80%.',
         'Engineered CI/CD with Docker + Jenkins, pushing images to ECR.',
@@ -99,7 +102,8 @@ export const profile = {
       ],
     },
     {
-      role: 'Product Analyst', org: 'PlaySimple Games', short: 'P', when: 'Sep 2020 — Dec 2022', where: 'Bengaluru · India',
+      role: 'Product Analyst', org: 'PlaySimple Games', short: 'P', logo: '/logos/playsimple.png',
+      when: 'Sep 2020 — Dec 2022', where: 'Bengaluru · India',
       bullets: [
         'Shipped real-time product-health alerts via an Isolation-Forest detector wired into on-call.',
         'Ran A/B experiments that lifted retention 15% and IAP 40%.',
@@ -107,9 +111,16 @@ export const profile = {
       ],
     },
   ],
+  // `note` renders as a highlighted chip (GPA); `where` is the location line.
   education: [
-    { role: 'M.Sc. Computer Science', org: 'University of Ottawa', when: '2023 — 2024', where: 'GPA 4.9 / 5' },
-    { role: 'B.Tech, Computer Science', org: 'SRM Institute of Science & Technology', when: '2017 — 2021', where: 'GPA 9.2 / 10' },
+    {
+      role: 'M.Sc. Computer Science', org: 'University of Ottawa',
+      when: '2023 — 2024', where: 'Ottawa · Canada', note: 'GPA 4.9 / 5',
+    },
+    {
+      role: 'B.Tech, Computer Science', org: 'SRM Institute of Science & Technology',
+      when: '2017 — 2021', where: 'Chennai · India', note: 'GPA 9.2 / 10',
+    },
   ],
   hobby: {
     kicker: 'Beyond the day job',

@@ -18,10 +18,14 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* hero — full-bleed, the 3D robot is a mouse-tracked background (no box), text overlaid */
+/* The hero's backdrop follows the THEME, not the mode. It used to be hard-coded to
+   #06070a with only `.is-3d` clearing it — so in Lite + light the hero was a black slab
+   under a white nav, with the light-theme text overrides painting dark-on-black. */
 .fancy-hero {
   position: relative; overflow: hidden; display: flex; align-items: center;
-  min-height: clamp(580px, 86vh, 820px); background: #06070a;
+  min-height: clamp(580px, 86vh, 820px); background: var(--bg);
 }
+:root[data-theme='dark'] .fancy-hero { background: #06070a; }
 /* canvas spans the whole hero so the robot tracks the cursor everywhere, incl. over text */
 .fh-spline-wrap { position: absolute; inset: 0; z-index: 0; }
 .fh-spline { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -53,8 +57,11 @@
 .fancy-bg-spline { position: absolute; inset: 0; width: 100%; height: 100%; }
 .fancy-bg-grad { position: absolute; inset: 0; background: linear-gradient(90deg, #06070a 0%, rgba(6,7,10,0.6) 42%, rgba(6,7,10,0.05) 72%); }
 .fancy-bg-dim { position: absolute; inset: 0; background: #06070a; } /* opacity set by scroll */
-/* in 3D mode the hero + sections are transparent so the fixed robot shows through */
-.is-3d .fancy-hero { background: transparent; }
+/* in 3D mode the hero + sections are transparent so the fixed robot shows through.
+   The dark-theme selector above is more specific than a bare `.is-3d .fancy-hero`,
+   so the dark variant is spelled out here or it would win and hide the robot. */
+.is-3d .fancy-hero,
+:root[data-theme='dark'] .is-3d .fancy-hero { background: transparent; }
 
 /* marquee */
 .marquee {

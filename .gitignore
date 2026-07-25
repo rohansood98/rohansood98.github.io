@@ -14,4 +14,7 @@ dist-ssr/
 .vscode/
 .idea/
 
+# browser-automation scratch output
+.playwright-mcp/
+
 # NOTE: public/resume.pdf SHOULD be committed (it's your public résumé, served at /resume.pdf)
